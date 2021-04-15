@@ -40,7 +40,7 @@ app.use(
 app.use(
  auth({
    secret: SESSION_SECRET,
-   authRequire: false,
+   authRequired: false,
    auth0Logout: true,
    baseURL: APP_URL,
  })
