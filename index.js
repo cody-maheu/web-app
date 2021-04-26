@@ -46,9 +46,9 @@ app.use(
    baseURL: APP_URL,
    // 👇 add this 👇
    authorizationParams: {
-     response_type: "code id_token offline_access",
+     response_type: "code id_token",
      audience: "https://expenses-api",
-     scope: "openid profile email read:reports",
+     scope: "openid profile email offline_access read:reports",
    },
    // 👆 add this 👆
  })
@@ -82,9 +82,9 @@ app.get("/expenses", requiresAuth(), async (req, res, next) => {
  try {
    // 👇 get the token from the request 👇
    const { token_type, access_token, isExpired, refresh } = req.oidc.accessToken;
-//    if (isExpired()) {
-//     ({ access_token } = await refresh());
-//    }
+   if (isExpired()) {
+    ({ access_token } = await refresh());
+   }
    // 👇 then send it as an authorization header 👇
    const expenses = await axios.get(`${API_URL}/reports`, {
      headers: {
