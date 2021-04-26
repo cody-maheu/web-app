@@ -83,6 +83,7 @@ app.get("/expenses", requiresAuth(), async (req, res, next) => {
    // 👇 get the token from the request 👇
    const { token_type, access_token, isExpired, refresh } = req.oidc.accessToken;
    if (isExpired()) {
+     console.log("expired");
     ({ access_token } = await refresh());
    }
    // 👇 then send it as an authorization header 👇
