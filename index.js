@@ -81,7 +81,7 @@ app.get("/user", requiresAuth(), async (req, res) => {
 app.get("/expenses", requiresAuth(), async (req, res, next) => {
  try {
    // 👇 get the token from the request 👇
-   const { token_type, access_token, isExpired, refresh } = req.oidc.accessToken;
+   let { token_type, access_token, isExpired, refresh } = req.oidc.accessToken;
    console.log("before");
    if (isExpired()) {
      console.log("expired");
